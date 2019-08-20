@@ -151,6 +151,20 @@ const add = async (file) => {
 }
 
 const find = (id, publicURL) => {
+  console.log(appList);
+  if(appList.length===0){
+    return {
+      ipa: `https://ipa.cybex.io/com.nbltrustdev.cybex.fir/7eec1d197f84d6b5/ipa.ipa`,
+      icon: `https://ipa.cybex.io/com.nbltrustdev.cybex.fir/7eec1d197f84d6b5/icon.png`,
+      plist: `https://ipa.cybex.io/plist/7eec1d197f84d6b5.plist`,
+      webIcon: `/com.nbltrustdev.cybex.fir/7eec1d197f84d6b5/icon.png`, // to display on web
+      date: `12 days ago`,
+      name: `BBB`,
+      build: 1135,
+      version: `1.10.11`,
+      size: 33114119
+    }
+  }
   const row = itemInfo(appList.find(row => row.id === id), publicURL)
   if (!row) { return {} }
 
