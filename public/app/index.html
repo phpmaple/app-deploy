@@ -203,7 +203,7 @@
             },
             mounted() {
                 axios
-                    .get(`/api/info/${query().id}`)
+                    .get(`/api/info/${query().identifierHash}`)
                     .then(response => {
                         this.item = response.data;
                         this.item.sizeNormal = (this.item.size / 1000000).toFixed(2);
