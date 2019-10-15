@@ -1,25 +1,12 @@
-# ipa-server
+# app-deploy
 
-Upload and install IPA in web.
-
-* [中文文档](README_zh.md)
-
-# Online Demo
-
-<https://ipa.ineva.cn>
-
-⚠️ Note About This Demo:
-
-* For test only
-* Server is deploy in China
-* Bandwidth only 1Mb/s
-* DO NOT USE THIS ON PRODUCTION
+Upload and install IPA/APK in web.
 
 # Install
 
-```
-$ git clone https://github.com/iineva/ipa-server
-$ cd ipa-server
+``` 
+$ git clone https://github.com/phpmaple/app-deploy
+$ cd app-deploy
 $ docker-compose up -d
 ```
 
@@ -33,7 +20,7 @@ Open <http://<HOST_NAME>:9008> in your browser.
 
 * There is a simple way to setup a HTTPS with replace `docker-compose.yml` file:
 
-```
+``` 
 
 # ***** Replace ALL <YOUR_DOMAIN> to you really domain *****
 
@@ -45,38 +32,25 @@ services:
     container_name: ipa-server
     restart: always
     environment:
+
       - NODE_ENV=production
       - PUBLIC_URL=https://<YOUR_DOMAIN>
+
     volumes:
+
       - "/docker/data/ipa-server:/app/upload"
-  caddy:
-    image: abiosoft/caddy:0.11.5
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    entrypoint: |
-      sh -c 'echo "$$CADDY_CONFIG" > /etc/Caddyfile && /usr/bin/caddy --conf /etc/Caddyfile --log stdout'
-    environment:
-      CADDY_CONFIG: |
-        <YOUR_DOMAIN> {
-          gzip
-          proxy / web:8080
-        }
+
 ```
 
 # Deploy Without Docker
 
-```shell
+``` shell
 # install node.js first
 npm install
 npm start
 ```
 
-
-* now you can access *https://\<YOUR_DOMAIN\>* in your browser.
-
-# Upload Access Control
+* now you can access *https://\<YOUR_DOMAIN\>* in your browser.# Upload Access Control
 
 Server side:
 
@@ -86,7 +60,7 @@ Client side:
 
 Add same `ACCESS_KEY` to window.localStorage.
 
+# Bonus
 
-Home | Detail |
- --- | ---
-![](snapshot/en/1.jpeg) | ![](snapshot/en/2.jpeg)
+you can access *https://\<YOUR_DOMAIN\>/springboard?name=\<YOUR_APPNAME\>* to install app with single URL, not only iOS and Android, just need  app with same name
+
