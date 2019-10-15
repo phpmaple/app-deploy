@@ -228,5 +228,8 @@ module.exports = {
 	list,
 	find,
 	add,
-	locate
+	locate,
+	uploadDir,
+	appList,
+	appListFile
 };

@@ -3,19 +3,7 @@ const util = require('util');
 const path = require('path');
 const PkgReader = require('reiko-parser');
 const config = require('../config');
-
-const uploadDir = config.uploadDir;
-
-fs.ensureDir(uploadDir);
-
-// store data
-const appListFile = path.join(uploadDir, 'appList.json');
-const appList = [];
-
-if (fs.pathExistsSync(appListFile)) {
-	const list = fs.readJsonSync(appListFile);
-	list.map(row => appList.push(row));
-}
+const ipaManager = require('./ipa-manager');
 
 const apkReader = file => {
 	const reader = new PkgReader(file, 'apk', { withIcon: true });
@@ -48,12 +36,17 @@ const add = async file => {
 		type: 'apk'
 	};
 
-	appList.unshift(app);
-	await fs.writeJson(appListFile, appList);
+	ipaManager.appList.unshift(app);
+	await fs.writeJson(ipaManager.appListFile, ipaManager.appList);
 
 	// save files to target dir
 	// TODO: upload dir configable
-	const targetDir = path.join(uploadDir, app.type, app.identifier, app.id);
+	const targetDir = path.join(
+		ipaManager.uploadDir,
+		app.type,
+		app.identifier,
+		app.id
+	);
 	await fs.move(file, path.join(targetDir, 'apk.apk'));
 
 	var data = manifest.icon.replace(/^data:image\/\w+;base64,/, '');
