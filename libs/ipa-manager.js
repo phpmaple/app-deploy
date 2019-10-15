@@ -204,6 +204,23 @@ const find = (identifierHash, publicURL) => {
 	return row;
 };
 
+const findId = (id, publicURL) => {
+	const row = itemInfo(appList.find(row => row.id === id), publicURL);
+	if (!row) {
+		return {};
+	}
+
+	row.history = appList
+		.filter(r => r.identifier === row.identifier)
+		.map(r =>
+			Object.assign({}, itemInfo(r, publicURL), {
+				current: r.id === row.id
+			})
+		);
+
+	return row;
+};
+
 const locate = (name, type, publicURL) => {
 	const row = itemInfo(
 		appList.find(row => row.type === type && row.name === name),
@@ -227,6 +244,7 @@ const locate = (name, type, publicURL) => {
 module.exports = {
 	list,
 	find,
+	findId,
 	add,
 	locate,
 	uploadDir,
