@@ -203,6 +203,8 @@
 
 		<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="js/mobile-detect.js"></script>
+
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script>
 			function query() {
@@ -238,9 +240,11 @@
 								this.item.size / 1000000
 							).toFixed(2);
 						});
-					const ua = navigator.userAgent.toLowerCase();
+                    const ua = navigator.userAgent.toLowerCase();
+                    var md = new MobileDetect(navigator.userAgent);
+                    var isAndroid = md.os() === 'AndroidOS';
 					this.isWeixin =
-						ua.match(/MicroMessenger/i) == 'micromessenger';
+						ua.match(/MicroMessenger/i) == 'micromessenger' && !isAndroid;
 				},
 				methods: {
 					install: function() {

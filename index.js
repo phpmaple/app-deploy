@@ -37,6 +37,12 @@ app.use(
 );
 
 app.use(
+	router.get('/api/name/:name/type/:type', async (ctx, name, type) => {
+		ctx.body = ipaManager.locate(name, type, publicURL(ctx));
+	})
+);
+
+app.use(
 	router.get('/api/info/:identifierHash', async (ctx, identifierHash) => {
 		ctx.body = ipaManager.find(identifierHash, publicURL(ctx));
 	})

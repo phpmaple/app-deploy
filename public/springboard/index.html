@@ -1,0 +1,59 @@
+!<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+	<!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>App</title>
+		<meta name="description" content="" />
+		<meta
+			name="viewport"
+			content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+		/>
+	</head>
+	<body>
+		<!--[if lt IE 7]>
+			<p class="browsehappy">
+				You are using an <strong>outdated</strong> browser. Please
+				<a href="#">upgrade your browser</a> to improve your experience.
+			</p>
+		<![endif]-->
+		<script src="js/mobile-detect.js"></script>
+		<script src="/js/object_hash.js"></script>
+
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+		<script>
+			function query() {
+				const obj = {};
+				window.location.search
+					.split('?')[1]
+					.split('&')
+					.map(row => {
+						const v = row.split('=');
+						if (v.length === 2) {
+							obj[v[0]] = v[1];
+						}
+					});
+				return obj;
+			}
+
+			function jump() {
+				var md = new MobileDetect(window.navigator.userAgent);
+				var type = md.os() === 'AndroidOS' ? 'apk' : 'ipa';
+				axios
+					.get(`/api/name/${query().name}/type/${type}`)
+					.then(response => {
+						window.location.href = `/app?identifierHash=${objectHash.sha1(
+							{ identifier: response.data.identifier }
+						)}`;
+					});
+			}
+			window.addEventListener('load', jump);
+		</script>
+	</body>
+</html>

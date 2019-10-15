@@ -204,8 +204,29 @@ const find = (identifierHash, publicURL) => {
 	return row;
 };
 
+const locate = (name, type, publicURL) => {
+	const row = itemInfo(
+		appList.find(row => row.type === type && row.name === name),
+		publicURL
+	);
+	if (!row) {
+		return {};
+	}
+
+	row.history = appList
+		.filter(r => r.identifier === row.identifier)
+		.map(r =>
+			Object.assign({}, itemInfo(r, publicURL), {
+				current: r.id === row.id
+			})
+		);
+
+	return row;
+};
+
 module.exports = {
 	list,
 	find,
-	add
+	add,
+	locate
 };
