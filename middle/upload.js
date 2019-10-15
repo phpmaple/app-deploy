@@ -40,10 +40,11 @@ module.exports = (opt = {}, next) => {
 	return async ctx => {
 		const files = [];
 		await receiveFiles(ctx.req, async row => {
-			const ext = opt.defExt || mime.extension(row.mimetype);
+			const isAndroid = row.filename.endsWith('.apk');
+
 			const filename =
 				randomstring.generate({ length: 16, charset: 'hex' }) +
-				(ext ? `.${ext}` : '');
+				(isAndroid ? '.apk' : '.ipa');
 			await fs.ensureDir(path.join(opt.tempDir));
 			saveStream(row.file, path.join(opt.tempDir, filename));
 			files.push(path.join(opt.tempDir, filename));

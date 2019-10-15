@@ -25,15 +25,18 @@ const iconPath = (publicURL, row) => {
 	if (row.noneIcon) {
 		return 'img/default.png';
 	} else {
-		return `${row.identifier}/${row.id}/icon.png`;
+		return `${row.type}/${row.identifier}/${row.id}/icon.png`;
 	}
 };
 
 const itemInfo = (row, publicURL) =>
 	Object.assign({}, row, {
-		ipa: `${config.publicURL || publicURL}/${row.identifier}/${
+		ipa: `${config.publicURL || publicURL}/${row.type}/${row.identifier}/${
 			row.id
 		}/ipa.ipa`,
+		apk: `${config.publicURL || publicURL}/${row.type}/${row.identifier}/${
+			row.id
+		}/apk.apk`,
 		icon: `${config.publicURL || publicURL}/${iconPath(publicURL, row)}`,
 		plist: `${config.publicURL || publicURL}/plist/${row.id}.plist`,
 		webIcon: `/${iconPath(publicURL, row)}`, // to display on web
@@ -151,14 +154,15 @@ const add = async file => {
 		build: info['CFBundleVersion'],
 		date: new Date(),
 		size: (await fs.lstat(file)).size,
-		noneIcon: !iconFile
+		noneIcon: !iconFile,
+		type: 'ipa'
 	};
 	appList.unshift(app);
 	await fs.writeJson(appListFile, appList);
 
 	// save files to target dir
 	// TODO: upload dir configable
-	const targetDir = path.join(uploadDir, app.identifier, app.id);
+	const targetDir = path.join(uploadDir, app.type, app.identifier, app.id);
 	await fs.move(file, path.join(targetDir, 'ipa.ipa'));
 	if (iconFile) {
 		try {

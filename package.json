@@ -1,30 +1,36 @@
 {
-  "name": "ipa-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "busboy": "^0.2.14",
-    "decompress-zip": "^0.3.2",
-    "fs-extra": "^5.0.0",
-    "koa": "^2.4.1",
-    "koa-locale": "^1.3.0",
-    "koa-route": "^3.2.0",
-    "koa-static": "^4.0.2",
-    "mime-types": "^2.1.17",
-    "moment": "^2.20.1",
-    "object-hash": "^2.0.0",
-    "pngdefry": "^1.1.6",
-    "randomstring": "^1.1.5",
-    "simple-plist": "^0.2.1"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.1"
-  },
-  "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT"
+	"name": "ipa-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"dependencies": {
+		"busboy": "^0.2.14",
+		"decompress-zip": "^0.3.2",
+		"fs-extra": "^5.0.0",
+		"koa": "^2.4.1",
+		"koa-locale": "^1.3.0",
+		"koa-route": "^3.2.0",
+		"koa-static": "^4.0.2",
+		"mime-types": "^2.1.17",
+		"mobile-detect": "^1.4.4",
+		"moment": "^2.20.1",
+		"object-hash": "^2.0.0",
+		"pngdefry": "^1.1.6",
+		"randomstring": "^1.1.5",
+		"reiko-parser": "^1.0.1",
+		"simple-plist": "^0.2.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.6.4",
+		"@babel/node": "^7.6.3",
+		"@babel/preset-env": "^7.6.3",
+		"jszip": "^3.2.2",
+		"nodemon": "^1.19.1"
+	},
+	"scripts": {
+		"start": "nodemon --exec babel-node index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "MIT"
 }

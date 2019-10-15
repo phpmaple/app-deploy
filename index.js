@@ -5,6 +5,7 @@ const app = new Koa();
 const config = require('./config');
 const { createPlistBody } = require('./libs/plist');
 const ipaManager = require('./libs/ipa-manager');
+const apkManager = require('./libs/apk-manager');
 const upload = require('./middle/upload');
 const locale = require('koa-locale');
 const moment = require('moment');
@@ -50,9 +51,21 @@ app.use(
 				defExt: 'ipa'
 			},
 			async (ctx, files) => {
+				const isAndroid = files[0].endsWith('.apk');
 				if (!canAccess(ctx)) {
 					return;
 				}
+				if (isAndroid) {
+					try {
+						await apkManager.add(files[0]);
+						ctx.body = { msg: 'Upload Done' };
+					} catch (err) {
+						console.log('Upload fail:', err);
+						ctx.body = { err: 'Upload fail' };
+					}
+					return;
+				}
+
 				try {
 					await ipaManager.add(files[0]);
 					ctx.body = { msg: 'Upload Done' };
