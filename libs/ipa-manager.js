@@ -222,10 +222,14 @@ const findId = (id, publicURL) => {
 };
 
 const locate = (name, type, publicURL) => {
-	const row = itemInfo(
-		appList.find(row => row.type === type && row.name === name),
-		publicURL
+	const origin_row = appList.find(
+		row => row.type === type && row.name === name
 	);
+
+	if (!origin_row) {
+		return {};
+	}
+	const row = itemInfo(origin_row, publicURL);
 	if (!row) {
 		return {};
 	}
