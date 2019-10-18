@@ -87,9 +87,9 @@
         <img data-normal="${row.webIcon}" alt="">
         <div class="center">
           <div class="name">${row.name}${
-			row.current
-				? `<span class="tag">${langString('Current')}</span>`
-				: ''
+			row.type === 'apk'
+				? `<span class="tag">Android</span>`
+				: '<span class="tag">iOS</span>'
 		}</div>
           <div class="version">${row.version}(Build ${row.build})</div>
           <div class="date">${IPA.langString('Upload Date: ')}${row.date}</div>

@@ -152,6 +152,11 @@
 					<div class="date">
 						Update: <span v-text="item.date">-- days ago</span>
 					</div>
+					<div>
+						Platform:
+						<span v-text="platform">--</span>
+					</div>
+
 					<div class="action">
 						<div v-show="display.installButton">
 							<a
@@ -228,13 +233,16 @@
 						trustButton: false
 					},
 					isWeixin: false,
-					item: {}
+					item: {},
+					platform: ''
 				},
 				mounted() {
 					axios
 						.get(`/api/info/${query().identifierHash}`)
 						.then(response => {
 							this.item = response.data;
+							this.platform =
+								this.item.type === 'apk' ? 'Android' : 'iOS';
 							this.item.sizeNormal = (
 								this.item.size / 1000000
 							).toFixed(2);
