@@ -26,7 +26,7 @@ const add = async file => {
 
 	const app = {
 		id: path.basename(file, '.apk'),
-		name: manifest.application.label[0],
+		name: manifest.application.label,
 		version: manifest.versionName,
 		identifier: manifest.package,
 		build: manifest.versionCode.toString(),
