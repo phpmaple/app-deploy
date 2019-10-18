@@ -22,7 +22,7 @@
 			}
 
 			.container {
-				border-top: 15px solid #b2000c;
+				border-top: 0px solid #32b2a7;
 			}
 
 			.highlight {
@@ -62,19 +62,19 @@
 			.btn-primary {
 				min-width: 300px;
 				border-radius: 20px;
-				background: #b2000c;
-				border-color: #b2000c;
+				background: #32b2a7;
+				border-color: #32b2a7;
 			}
 
 			.btn-primary:hover {
-				background: #a0000b;
-				border-color: #a0000b;
+				background: #32b2a7;
+				border-color: #32b2a7;
 			}
 
 			.btn-outlined {
 				background: transparent;
 				border: 2px solid;
-				color: #b2000c;
+				color: #32b2a7;
 			}
 
 			a:hover,
@@ -126,6 +126,30 @@
 				animation: lds-dual-ring 1.2s linear infinite;
 			}
 
+			.pattern.left {
+				left: 0;
+			}
+			.pattern.right {
+				right: 0;
+			}
+			.pattern {
+				position: absolute;
+				top: 0;
+				z-index: 1;
+				max-width: 312px;
+				width: 21.66%;
+				transition: all 0.5s;
+			}
+			.pattern img {
+				width: 100%;
+				transition: all 1s;
+				pointer-events: none;
+			}
+			@media (max-width: 1280px) {
+				.pattern {
+					width: 18%;
+				}
+			}
 			@keyframes lds-dual-ring {
 				0% {
 					transform: rotate(0deg);
@@ -140,6 +164,12 @@
 
 	<body>
 		<div id="app">
+			<span class="pattern left"
+				><img src="../img/download_pattern_left.png"
+			/></span>
+			<span class="pattern right"
+				><img src="../img/download_pattern_right.png"
+			/></span>
 			<div class="container">
 				<div id="info" class="text-center">
 					<img alt="" v-bind:src="item.webIcon" />
