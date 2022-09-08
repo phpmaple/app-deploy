@@ -24,7 +24,7 @@
 		"@babel/core": "^7.6.4",
 		"@babel/node": "^7.6.3",
 		"@babel/preset-env": "^7.6.3",
-		"jszip": "^3.2.2",
+		"jszip": "^3.7.0",
 		"nodemon": "^1.19.1"
 	},
 	"scripts": {
